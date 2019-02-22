@@ -72,7 +72,8 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "jest-environment-enzyme": "^7.0.1",
-    "jest-enzyme": "^7.0.1"
+    "jest-enzyme": "^7.0.1",
+    "react-tabs": "^3.0.0"
   },
   "jest": {
     "collectCoverageFrom": [
