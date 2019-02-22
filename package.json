@@ -21,5 +21,12 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "jest-environment-enzyme": "^7.0.1",
+    "jest-enzyme": "^7.0.1"
+  }
 }
