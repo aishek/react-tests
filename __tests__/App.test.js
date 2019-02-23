@@ -45,7 +45,23 @@ it('remove first tab, second became active', () => {
   })
 })
 
-it('add tab', () => {
+it('switch tab', () => {
+  const tree = mount(<App/>)
+
+  expect(tree).toIncludeText('Title 1')
+  expect(tree).toIncludeText('Title 2')
+  expect(tree).toIncludeText('Content 1')
+  expect(tree).not.toIncludeText('Content 2')
+
+  const tabs = tree.find('[data-test="tab"]')
+  const tab = tabs.at(1)
+  tab.simulate('click')
+
+  expect(tree).not.toIncludeText('Content 1')
+  expect(tree).toIncludeText('Content 2')
+})
+
+it('switch tab', () => {
   const tree = mount(<App/>)
 
   const tabs = tree.find('[data-test="tab"]')
