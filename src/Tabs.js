@@ -6,7 +6,7 @@ export default () => (
   <Tabs>
     <TabList>
       <Tab>Title 1</Tab>
-      <Tab>Title 2</Tab>
+      <Tab id="tab2">Title 2</Tab>
     </TabList>
 
     <TabPanel>
