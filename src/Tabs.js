@@ -1,10 +1,18 @@
 import React, { PureComponent } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import PropTypes from 'prop-types'
 import 'react-tabs/style/react-tabs.css'
 
 export default class TabsExample extends PureComponent {
+  static propTypes = {
+    storage: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired
+  }
+
   constructor (props) {
     super(props)
+
+    const selectedTabFromStorage = this.props.storage.get('selected_tab')
+    const selectedTab = typeof selectedTabFromStorage === 'undefined' ? null : parseInt(selectedTabFromStorage)
 
     this.state = {
       tabs: [
@@ -18,7 +26,8 @@ export default class TabsExample extends PureComponent {
           tab: 'Title 2',
           content: 'Content 2'
         }
-      ]
+      ],
+      selectedTab
     }
     this.maxTabNumber = 2
   }
@@ -27,7 +36,7 @@ export default class TabsExample extends PureComponent {
     return (
       <div>
         <button onClick={this.handleAddTabClick} data-test="add-tab">Add tab</button>
-        <Tabs>
+        <Tabs onSelect={this.handleTabSelect} selectedIndex={this.state.selectedTab}>
           <TabList>
             {this.state.tabs.map(({ tab, id }) => (
               <Tab key={id} data-test="tab">
@@ -47,6 +56,11 @@ export default class TabsExample extends PureComponent {
         </Tabs>
       </div>
     )
+  }
+
+  handleTabSelect = index => {
+    this.props.storage.set('selected_tab', index)
+    this.setState({ selectedIndex: index })
   }
 
   handleAddTabClick = () => {

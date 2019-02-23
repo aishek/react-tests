@@ -3,6 +3,7 @@ import App from '../src/App'
 import Page from './Page'
 import { mount } from 'enzyme'
 import withStateLogger from './withStateLogger'
+import { NullStorage, MemoryStorage } from './storages'
 
 it('renders correctly', () => {
   const tree = mount(<App />)
@@ -46,7 +47,7 @@ it('remove tab', () => {
 })
 
 it('switch tab', () => {
-  const tree = mount(<App/>)
+  const tree = mount(<App storage={NullStorage}/>)
   const page = new Page(tree)
 
   const tabs = page.tabs()
@@ -58,4 +59,19 @@ it('switch tab', () => {
   const tabsAfterSwitch = page.tabs()
   expect(tabsAfterSwitch.at(0)).toHaveProp('aria-selected', 'false')
   expect(tabsAfterSwitch.at(1)).toHaveProp('aria-selected', 'true')
+})
+
+it('restore last active tab on reload', () => {
+  const storage = new MemoryStorage()
+  const tree = mount(<App storage={storage}/>)
+  const page = new Page(tree)
+
+  const tabs = page.tabs()
+  tabs.at(1).simulate('click')
+
+  const nextTree = mount(<App storage={storage}/>)
+  const nextPage = new Page(nextTree)
+  const nextTabs = nextPage.tabs()
+  expect(nextTabs.at(0)).toHaveProp('aria-selected', 'false')
+  expect(nextTabs.at(1)).toHaveProp('aria-selected', 'true')
 })
