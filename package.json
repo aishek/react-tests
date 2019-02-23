@@ -64,6 +64,7 @@
       "standard",
       "plugin:react/recommended"
     ],
+    "parser": "babel-eslint",
     "plugins": [
       "react",
       "standard"
@@ -123,7 +124,7 @@
       "enzymeAdapter": "react16"
     },
     "testMatch": [
-      "<rootDir>/__tests__/**/*.{js,jsx,ts,tsx}"
+      "<rootDir>/__tests__/**/*.test.{js,jsx,ts,tsx}"
     ],
     "testURL": "http://localhost",
     "transform": {
