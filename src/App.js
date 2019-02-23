@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import Tabs from "./Tabs"
+import React, { Component } from 'react'
+import Tabs from './Tabs'
 
 class App extends Component {
-  render() {
+  render () {
     return <Tabs/>
   }
 }
 
-export default App;
+export default App
