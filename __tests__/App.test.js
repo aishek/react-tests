@@ -1,5 +1,6 @@
 import React from 'react'
 import App from '../src/App'
+import Page from './Page'
 import { mount } from 'enzyme'
 import withStateLogger from './withStateLogger'
 
@@ -10,8 +11,9 @@ it('renders correctly', () => {
 
 it('switch tabs correctly', () => {
   const tree = mount(<App />)
+  const page = new Page(tree)
 
-  const tab = tree.find('[data-test="tab"]').at(1)
+  const tab = page.tabs().at(1)
   tab.simulate('click')
 
   expect(tree.render()).toMatchSnapshot()
@@ -20,37 +22,40 @@ it('switch tabs correctly', () => {
 it('add tab', () => {
   withStateLogger(() => {
     const tree = mount(<App/>)
+    const page = new Page(tree)
 
-    const tabs = tree.find('li[data-test="tab"]')
-    expect(tree).toContainMatchingElements(tabs.length, 'li[data-test="tab"]')
+    const tabs = page.tabs()
+    expect(tree).toContainMatchingElements(tabs.length, Page.TAB_SELECTOR)
 
-    tree.find('[data-test="add-tab"]').simulate('click')
+    page.addTabButton().simulate('click')
 
-    expect(tree).toContainMatchingElements(tabs.length + 1, 'li[data-test="tab"]')
+    expect(tree).toContainMatchingElements(tabs.length + 1, Page.TAB_SELECTOR)
   })
 })
 
 it('remove tab', () => {
   const tree = mount(<App/>)
+  const page = new Page(tree)
 
-  const tabs = tree.find('li[data-test="tab"]')
-  expect(tree).toContainMatchingElements(tabs.length, 'li[data-test="tab"]')
+  const tabs = page.tabs()
+  expect(tree).toContainMatchingElements(tabs.length, Page.TAB_SELECTOR)
 
-  tree.find('[data-test="remove-tab"]').at(0).simulate('click')
+  page.removeTabButton(0).simulate('click')
 
-  expect(tree).toContainMatchingElements(tabs.length - 1, 'li[data-test="tab"]')
+  expect(tree).toContainMatchingElements(tabs.length - 1, Page.TAB_SELECTOR)
 })
 
 it('switch tab', () => {
   const tree = mount(<App/>)
+  const page = new Page(tree)
 
-  const tabs = tree.find('li[data-test="tab"]')
-  expect(tabs.at(0)).toMatchSelector('[aria-selected="true"]')
-  expect(tabs.at(1)).toMatchSelector('[aria-selected="false"]')
+  const tabs = page.tabs()
+  expect(tabs.at(0)).toHaveProp('aria-selected', 'true')
+  expect(tabs.at(1)).toHaveProp('aria-selected', 'false')
 
   tabs.at(1).simulate('click')
 
-  const tabsAfterSwitch = tree.find('li[data-test="tab"]')
-  expect(tabsAfterSwitch.at(0)).toMatchSelector('[aria-selected="false"]')
-  expect(tabsAfterSwitch.at(1)).toMatchSelector('[aria-selected="true"]')
+  const tabsAfterSwitch = page.tabs()
+  expect(tabsAfterSwitch.at(0)).toHaveProp('aria-selected', 'false')
+  expect(tabsAfterSwitch.at(1)).toHaveProp('aria-selected', 'true')
 })
