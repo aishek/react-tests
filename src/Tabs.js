@@ -6,7 +6,9 @@ export default () => (
   <Tabs>
     <TabList>
       <Tab>Title 1</Tab>
-      <Tab>Title 2</Tab>
+      <Tab>
+        <span data-test-name="second-tab">Title 2</span>
+      </Tab>
     </TabList>
 
     <TabPanel>

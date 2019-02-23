@@ -98,6 +98,7 @@
     "chai": "^4.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
+    "enzyme-to-json": "^3.3.5",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
@@ -122,7 +123,7 @@
       "enzymeAdapter": "react16"
     },
     "snapshotSerializers": [
-      "jest-serializer-html-string"
+      "enzyme-to-json/serializer"
     ],
     "testMatch": [
       "<rootDir>/__tests__/**/*.{js,jsx,ts,tsx}"

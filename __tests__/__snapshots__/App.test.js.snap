@@ -73,7 +73,11 @@ exports[`renders correctly 1`] = `
                   role="tab"
                   tabIndex={null}
                 >
-                  Title 2
+                  <span
+                    data-test-name="second-tab"
+                  >
+                    Title 2
+                  </span>
                 </li>
               </Tab>
             </ul>
@@ -194,7 +198,11 @@ exports[`switch tabs correctly 1`] = `
                   role="tab"
                   tabIndex="0"
                 >
-                  Title 2
+                  <span
+                    data-test-name="second-tab"
+                  >
+                    Title 2
+                  </span>
                 </li>
               </Tab>
             </ul>

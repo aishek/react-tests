@@ -10,8 +10,7 @@ it('renders correctly', () => {
 it('switch tabs correctly', () => {
   const tree = mount(<App />)
 
-  const tabs = tree.find('[role="tab"]')
-  const tab = tabs.filterWhere(node => node.text() === 'Title 2')
+  const tab = tree.find('[data-test-name="second-tab"]')
   tab.simulate('click')
 
   expect(tree).toMatchSnapshot()
