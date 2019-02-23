@@ -23,6 +23,7 @@ it('remove first tab, second became active', () => {
 
     // debugger
 
+    const tabs = tree.find('[data-test="tab"]')
     expect(tree).toIncludeText('Title 1')
     expect(tree).toIncludeText('Title 2')
     expect(tree).toIncludeText('Content 1')
@@ -39,12 +40,15 @@ it('remove first tab, second became active', () => {
     expect(tree).not.toIncludeText('Remove this tab (1)')
     expect(tree).toIncludeText('Content 2')
     expect(tree).toIncludeText('Remove this tab (2)')
+
+    expect(tree).toContainMatchingElements(tabs.length - 1, '[data-test="tab"]')
   })
 })
 
 it('add tab', () => {
   const tree = mount(<App/>)
 
+  const tabs = tree.find('[data-test="tab"]')
   expect(tree).toIncludeText('Title 1')
   expect(tree).toIncludeText('Title 2')
   expect(tree).not.toIncludeText('Title 3')
@@ -53,4 +57,5 @@ it('add tab', () => {
   addTabButton.simulate('click')
 
   expect(tree).toIncludeText('Title 3')
+  expect(tree).toContainMatchingElements(tabs.length + 1, '[data-test="tab"]')
 })
