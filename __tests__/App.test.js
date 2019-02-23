@@ -4,7 +4,7 @@ import { mount } from 'enzyme'
 
 it('renders correctly', () => {
   const tree = mount(<App />)
-  expect(tree).toMatchSnapshot()
+  expect(tree.render()).toMatchSnapshot()
 })
 
 it('switch tabs correctly', () => {
@@ -13,5 +13,5 @@ it('switch tabs correctly', () => {
   const tab = tree.find('[data-test-name="second-tab"]')
   tab.simulate('click')
 
-  expect(tree).toMatchSnapshot()
+  expect(tree.render()).toMatchSnapshot()
 })
