@@ -20,29 +20,23 @@ exports[`renders correctly 1`] = `
         aria-disabled="false"
         aria-selected="true"
         class="react-tabs__tab react-tabs__tab--selected"
+        data-test="tab"
         id="react-tabs-0"
         role="tab"
         tabindex="0"
       >
-        <span
-          data-test="tab"
-        >
-          Title 1
-        </span>
+        Title 1
       </li>
       <li
         aria-controls="react-tabs-3"
         aria-disabled="false"
         aria-selected="false"
         class="react-tabs__tab"
+        data-test="tab"
         id="react-tabs-2"
         role="tab"
       >
-        <span
-          data-test="tab"
-        >
-          Title 2
-        </span>
+        Title 2
       </li>
     </ul>
     <div
@@ -90,56 +84,50 @@ exports[`switch tabs correctly 1`] = `
       <li
         aria-controls="react-tabs-5"
         aria-disabled="false"
-        aria-selected="false"
-        class="react-tabs__tab"
+        aria-selected="true"
+        class="react-tabs__tab react-tabs__tab--selected"
+        data-test="tab"
         id="react-tabs-4"
         role="tab"
+        tabindex="0"
       >
-        <span
-          data-test="tab"
-        >
-          Title 1
-        </span>
+        Title 1
       </li>
       <li
         aria-controls="react-tabs-7"
         aria-disabled="false"
-        aria-selected="true"
-        class="react-tabs__tab react-tabs__tab--selected"
+        aria-selected="false"
+        class="react-tabs__tab"
+        data-test="tab"
         id="react-tabs-6"
         role="tab"
-        tabindex="0"
       >
-        <span
-          data-test="tab"
-        >
-          Title 2
-        </span>
+        Title 2
       </li>
     </ul>
     <div
       aria-labelledby="react-tabs-4"
-      class="react-tabs__tab-panel"
-      id="react-tabs-5"
-      role="tabpanel"
-    />
-    <div
-      aria-labelledby="react-tabs-6"
       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
-      id="react-tabs-7"
+      id="react-tabs-5"
       role="tabpanel"
     >
       <div
         data-test="tab-content"
       >
-        Content 2
+        Content 1
         <button
           data-test="remove-tab"
         >
-          Remove this tab (2)
+          Remove this tab (1)
         </button>
       </div>
     </div>
+    <div
+      aria-labelledby="react-tabs-6"
+      class="react-tabs__tab-panel"
+      id="react-tabs-7"
+      role="tabpanel"
+    />
   </div>
 </div>
 `;

@@ -30,8 +30,8 @@ export default class TabsExample extends PureComponent {
         <Tabs>
           <TabList>
             {this.state.tabs.map(({ tab, id }) => (
-              <Tab key={id}>
-                <span data-test="tab">{tab}</span>
+              <Tab key={id} data-test="tab">
+                {tab}
               </Tab>
             ))}
           </TabList>

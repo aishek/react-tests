@@ -17,61 +17,40 @@ it('switch tabs correctly', () => {
   expect(tree.render()).toMatchSnapshot()
 })
 
-it('remove first tab, second became active', () => {
+it('add tab', () => {
   withStateLogger(() => {
     const tree = mount(<App/>)
 
-    // debugger
+    const tabs = tree.find('li[data-test="tab"]')
+    expect(tree).toContainMatchingElements(tabs.length, 'li[data-test="tab"]')
 
-    const tabs = tree.find('[data-test="tab"]')
-    expect(tree).toIncludeText('Title 1')
-    expect(tree).toIncludeText('Title 2')
-    expect(tree).toIncludeText('Content 1')
-    expect(tree).toIncludeText('Remove this tab (1)')
-    expect(tree).not.toIncludeText('Content 2')
-    expect(tree).not.toIncludeText('Remove this tab (2)')
+    tree.find('[data-test="add-tab"]').simulate('click')
 
-    const removeFirstTabButton = tree.find('[data-test="remove-tab"]')
-    removeFirstTabButton.simulate('click')
-
-    expect(tree).not.toIncludeText('Title 1')
-    expect(tree).toIncludeText('Title 2')
-    expect(tree).not.toIncludeText('Content 1')
-    expect(tree).not.toIncludeText('Remove this tab (1)')
-    expect(tree).toIncludeText('Content 2')
-    expect(tree).toIncludeText('Remove this tab (2)')
-
-    expect(tree).toContainMatchingElements(tabs.length - 1, '[data-test="tab"]')
+    expect(tree).toContainMatchingElements(tabs.length + 1, 'li[data-test="tab"]')
   })
 })
 
-it('switch tab', () => {
+it('remove tab', () => {
   const tree = mount(<App/>)
 
-  expect(tree).toIncludeText('Title 1')
-  expect(tree).toIncludeText('Title 2')
-  expect(tree).toIncludeText('Content 1')
-  expect(tree).not.toIncludeText('Content 2')
+  const tabs = tree.find('li[data-test="tab"]')
+  expect(tree).toContainMatchingElements(tabs.length, 'li[data-test="tab"]')
 
-  const tabs = tree.find('[data-test="tab"]')
-  const tab = tabs.at(1)
-  tab.simulate('click')
+  tree.find('[data-test="remove-tab"]').at(0).simulate('click')
 
-  expect(tree).not.toIncludeText('Content 1')
-  expect(tree).toIncludeText('Content 2')
+  expect(tree).toContainMatchingElements(tabs.length - 1, 'li[data-test="tab"]')
 })
 
 it('switch tab', () => {
   const tree = mount(<App/>)
 
-  const tabs = tree.find('[data-test="tab"]')
-  expect(tree).toIncludeText('Title 1')
-  expect(tree).toIncludeText('Title 2')
-  expect(tree).not.toIncludeText('Title 3')
+  const tabs = tree.find('li[data-test="tab"]')
+  expect(tabs.at(0)).toMatchSelector('[aria-selected="true"]')
+  expect(tabs.at(1)).toMatchSelector('[aria-selected="false"]')
 
-  const addTabButton = tree.find('[data-test="add-tab"]')
-  addTabButton.simulate('click')
+  tabs.at(1).simulate('click')
 
-  expect(tree).toIncludeText('Title 3')
-  expect(tree).toContainMatchingElements(tabs.length + 1, '[data-test="tab"]')
+  const tabsAfterSwitch = tree.find('li[data-test="tab"]')
+  expect(tabsAfterSwitch.at(0)).toMatchSelector('[aria-selected="false"]')
+  expect(tabsAfterSwitch.at(1)).toMatchSelector('[aria-selected="true"]')
 })
