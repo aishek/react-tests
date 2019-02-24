@@ -5,15 +5,7 @@ export default class Page {
 
   static TAB_SELECTOR = 'li[data-test="tab"]'
 
-  tabs () {
-    return this.tree.find(Page.TAB_SELECTOR)
-  }
-
-  addTabButton () {
-    return this.tree.find('[data-test="add-tab"]')
-  }
-
-  removeTabButton (index) {
-    return this.tree.find('[data-test="remove-tab"]').at(index)
-  }
+  tabs = () => this.tree.find(this.constructor.TAB_SELECTOR)
+  addTabButton = () => this.tree.find('[data-test="add-tab"]')
+  removeTabButton = (index) => this.tree.find('[data-test="remove-tab"]').at(index)
 }
