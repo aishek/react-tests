@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import PropTypes from 'prop-types'
 import 'react-tabs/style/react-tabs.css'
+import getRSSItems from './getRSSItems'
 
 export default class TabsExample extends PureComponent {
   static propTypes = {
@@ -12,7 +13,7 @@ export default class TabsExample extends PureComponent {
     super(props)
 
     const selectedTabFromStorage = this.props.storage.get('selected_tab')
-    const selectedTab = typeof selectedTabFromStorage === 'undefined' ? null : parseInt(selectedTabFromStorage)
+    const selectedTab = typeof selectedTabFromStorage === 'undefined' ? 0 : parseInt(selectedTabFromStorage)
 
     this.state = {
       tabs: [
@@ -27,7 +28,8 @@ export default class TabsExample extends PureComponent {
           content: 'Content 2'
         }
       ],
-      selectedTab
+      selectedTab,
+      url: ''
     }
     this.maxTabNumber = 2
   }
@@ -37,7 +39,7 @@ export default class TabsExample extends PureComponent {
       <div>
         <button onClick={this.handleAddTabClick} data-test="add-tab">Add tab</button>
         <Tabs onSelect={this.handleTabSelect} selectedIndex={this.state.selectedTab}>
-          <TabList>
+          <TabList data-test="tabs-box">
             {this.state.tabs.map(({ tab, id }) => (
               <Tab key={id} data-test="tab">
                 {tab}
@@ -48,19 +50,52 @@ export default class TabsExample extends PureComponent {
           {this.state.tabs.map(({ content, id }) => (
             <TabPanel key={id}>
               <div data-test="tab-content">
-                {content}
+                <div dangerouslySetInnerHTML={ { __html: content } }/>
                 <button onClick={() => this.handleRemoveTabClick(id)} data-test="remove-tab">Remove this tab ({id})</button>
               </div>
             </TabPanel>
           ))}
         </Tabs>
+
+        <div>
+          <input type="text" onChange={this.handleURLChange} value={this.state.url} placeholder="RSS URL" data-test="rss-url"/>
+          <button onClick={this.handleGrabRSSClick} data-test="grab-rss">Grab RSS</button>
+        </div>
       </div>
     )
   }
 
+  handleURLChange = event => {
+    const url = event.target.value
+    this.setState({ url })
+  }
+
+  handleGrabRSSClick = () => {
+    const { url } = this.state
+
+    getRSSItems(url).then(items => {
+      this.setState(prevState => {
+        const id = this.maxTabNumber + 1
+        const tab = {
+          id,
+          tab: url,
+          content: items.map(({ title }) => `<h2>${title}</h2>`).join('')
+        }
+
+        return {
+          ...prevState,
+          tabs: [
+            ...prevState.tabs,
+            tab
+          ]
+        }
+      }, () => (this.maxTabNumber += 1))
+    })
+  }
+
   handleTabSelect = index => {
     this.props.storage.set('selected_tab', index)
-    this.setState({ selectedIndex: index })
+    this.setState({ selectedTab: index })
   }
 
   handleAddTabClick = () => {

@@ -13,6 +13,7 @@ exports[`renders correctly 1`] = `
   >
     <ul
       class="react-tabs__tab-list"
+      data-test="tabs-box"
       role="tablist"
     >
       <li
@@ -48,7 +49,9 @@ exports[`renders correctly 1`] = `
       <div
         data-test="tab-content"
       >
-        Content 1
+        <div>
+          Content 1
+        </div>
         <button
           data-test="remove-tab"
         >
@@ -62,6 +65,19 @@ exports[`renders correctly 1`] = `
       id="react-tabs-3"
       role="tabpanel"
     />
+  </div>
+  <div>
+    <input
+      data-test="rss-url"
+      placeholder="RSS URL"
+      type="text"
+      value=""
+    />
+    <button
+      data-test="grab-rss"
+    >
+      Grab RSS
+    </button>
   </div>
 </div>
 `;
@@ -79,6 +95,7 @@ exports[`switch tabs correctly 1`] = `
   >
     <ul
       class="react-tabs__tab-list"
+      data-test="tabs-box"
       role="tablist"
     >
       <li
@@ -120,7 +137,9 @@ exports[`switch tabs correctly 1`] = `
       <div
         data-test="tab-content"
       >
-        Content 2
+        <div>
+          Content 2
+        </div>
         <button
           data-test="remove-tab"
         >
@@ -128,6 +147,19 @@ exports[`switch tabs correctly 1`] = `
         </button>
       </div>
     </div>
+  </div>
+  <div>
+    <input
+      data-test="rss-url"
+      placeholder="RSS URL"
+      type="text"
+      value=""
+    />
+    <button
+      data-test="grab-rss"
+    >
+      Grab RSS
+    </button>
   </div>
 </div>
 `;

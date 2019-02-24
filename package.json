@@ -45,6 +45,7 @@
     "react-dev-utils": "^7.0.3",
     "react-dom": "^16.8.3",
     "resolve": "1.10.0",
+    "rss-parser": "^3.6.2",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.2",
@@ -98,6 +99,7 @@
   ],
   "devDependencies": {
     "chai": "^4.2.0",
+    "delay": "^4.1.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "enzyme-to-json": "^3.3.5",
@@ -105,9 +107,11 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
+    "fs": "^0.0.1-security",
     "jest-environment-enzyme": "^7.0.1",
     "jest-enzyme": "^7.0.1",
     "jest-serializer-html-string": "^1.0.1",
+    "nock": "^10.0.6",
     "prop-types": "^15.7.2",
     "react-tabs": "^3.0.0"
   },
