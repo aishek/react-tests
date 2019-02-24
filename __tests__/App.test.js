@@ -92,7 +92,8 @@ it('fetch rss and create tab for it', async () => {
 
   page.RSSURLInput().simulate('change', { target: { value: 'https://bureau.ru/news/rss/' } })
   page.GrabRSSButton().simulate('click')
-  await delay(100)
+  await delay(0)
+  await delay(0)
   tree.update()
 
   const tabs = page.tabs()
@@ -100,7 +101,9 @@ it('fetch rss and create tab for it', async () => {
   expect(tabs.at(tabsBeforeCreate.length)).toHaveText('https://bureau.ru/news/rss/')
 
   tabs.at(tabsBeforeCreate.length).simulate('click')
-  expect(tree).toIncludeText('Победитель Новогоднего чемпионата оленеводов — 2019 Сергей Колесников награждён годовой подпиской на книгу «Путешествие в шахматное королевство».')
-  expect(tree).toIncludeText('Юрий Мазурский рассказал в «Техноведре» о «сеточности» на сайте бюро.')
-  expect(tree).toIncludeText('Артём Горбунов написал в Фейсбуке о ближайшем наборе в Школу бюро.')
+  const matches = xml.match(/<title>(.*)<\/title>/g)
+  matches.slice(1).forEach(match => {
+    const text = match.match(/<title>(.*)<\/title>/)[1]
+    expect(tree).toIncludeText(text)
+  })
 })
